@@ -1,57 +1,41 @@
-# Roll20-AI-DM
-Here is the plain text version, organized into numbered sections as requested. You can copy and paste this directly into your GitHub README or save it as a text file for your records.
+### # Roll20 AI Dungeon Master 
 
+A local, private D&D 5e Dungeon Master powered by **Llama 3.2** and **Ollama**. This tool acts as a bridge between a local Large Language Model and your Roll20 tabletop sessions, featuring automated session logging and a random monster manual selector.
 
-### 1. Overview
+### ### 1. Overview
 
-Roll20 AI Dungeon Master is a local, private D&D Dungeon Master tool powered by Llama 3.2 and Ollama. This script acts as a bridge between a local AI "brain" on your PC and your Roll20 tabletop sessions, allowing for private storytelling without subscriptions.
+This script allows you to run a private AI DM on your own hardware. It features **Short-term memory** (the AI remembers the current session) and **Long-term storage** (every word is saved to a local text file).
 
-### 2. Prerequisites
+### ### 2. Prerequisites & Setup
 
-Before you try to run the script, make sure these three things are installed and ready:
+1. **Ollama:** Install from ollama.com and run `ollama pull llama3.2` in your terminal.
+2. **Python Libraries:** Inside your virtual environment `(venv)`, you must install the required tools:
+`pip install ollama pymupdf`
+3. **The Book:** You must place your own `Monster_Manual.pdf` directly into the `Roll20_DM` folder for the randomizer to work.
 
-1. **Ollama:** Download and install from ollama.com. Make sure the application is running (look for the icon in your system tray).
-2. **Llama 3.2:** Open a standard Command Prompt and run the command: `ollama pull llama3.2`. This downloads the AI model (approx 2.0GB).
-3. **Python 3.12+:** Ensure Python is installed on your Windows machine and added to your PATH.
+### ### 3. Session Persistence
 
-### 3. Setup and Installation
+* **Live Memory:** The AI remembers your current session as long as the terminal window stays open.
+* **Hard Copy:** every action, DM response, and dice roll is automatically saved to `session_history.txt` with a timestamp.
+* **To Continue a Story:** Open your log file, copy the last paragraph of the previous session, and paste it as the "Starting Location" when you restart the script.
 
-Follow these steps to get the folder ready on your computer:
+### ### 4. The Monster Manual (PDF Integration)
 
-1. Clone this repository or download the project folder to your Desktop.
-2. Open a Command Prompt and navigate to the folder: `cd Desktop\Roll20_DM`
-3. Create a virtual environment to keep things clean: `python -m venv venv`
-4. Activate the virtual environment: `venv\Scripts\activate`
-* (You should now see `(venv)` at the start of your command line).
+Each time you start a new session, the script performs the following:
 
+1. It randomly selects 4 pages from your `Monster_Manual.pdf`.
+2. It loads those specific stats into the AI's "Brain" for combat reference.
+3. It displays the page numbers in your terminal so you can refer to the artwork or lore in your own copy of the book.
 
-5. Install the required communication library: `pip install ollama`
+### ### 5. Dice Rolling Mechanics
 
-### 4. Session Prep (Do this before every game)
+* **Players:** Players roll their own dice on Roll20. The DM simply enters the result into the prompt (e.g., "Fighter hits with a 15").
+* **Enemies:** The AI handles enemy math. The DM triggers this by starting a line with 'roll' followed by the dice and the action (e.g., 'roll 1d20+2 The Orc attacks').
 
-To ensure the game runs smoothly without technical lag, check these three items before your players log in:
+### ### 6. Privacy & Security
 
-1. **Check the Engine:** Click the Ollama icon in your Start Menu to ensure the background service is active.
-2. **Check the Brain:** In a terminal, type `ollama list` to make sure `llama3.2` appears in the list.
-3. **Verify the Script:** Open your `dm_bot.py` file in VS Code to make sure your latest changes are saved.
-
-### 5. How to Play
-
-1. **Launch the DM:** In your `(venv)` terminal, run `python dm_bot.py`.
-2. **Set the Scene:** The script will ask for a starting location. Type in the current setting (e.g., "The party is inside a damp cave filled with glowing mushrooms").
-3. **The Roll20 Bridge:** - Keep Roll20 open in your browser and the Python terminal open next to it.
-* When a player types an action in Roll20, type it into the "Player action" prompt in your terminal.
-* When the AI generates the DM's response, copy that text and paste it into the Roll20 chat for your friends to read.
-
-
-
-### 6. Dice Rolling and Combat
-
-The script includes a built-in dice roller for the DM.
-
-* If you need to roll for a monster or a check, type `roll` followed by the dice notation (e.g., `roll 1d20+5`).
-* The system will calculate the result and feed it directly to the AI so the narration reflects the outcome of the roll.
+Your `session_history.txt` and `Monster_Manual.pdf` are automatically ignored by Git (via the `.gitignore` file). This means your code remains public on GitHub, but your personal game notes and copyrighted books stay private on your local machine.
 
 ---
 
-**Would you like me to show you how to add a "Save Game" feature to this script so it writes the story to a text file as you play?**
+### **Final Step for your Terminal:**
