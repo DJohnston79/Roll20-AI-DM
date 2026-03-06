@@ -38,4 +38,4 @@ Your `session_history.txt` and `Monster_Manual.pdf` are automatically ignored by
 
 ---
 
-### **Final Step for your Terminal:**
+
